@@ -1,1 +1,1 @@
-## Javascript Tool Library
+## JavaScript Tool Library
