@@ -18,11 +18,11 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "format": "prettier --write ."
+    "check:format": "biome check --apply ."
   },
   "devDependencies": {
+    "@biomejs/biome": "1.6.4",
     "@types/node": "^20.12.5",
-    "prettier": "^3.2.5",
     "typescript": "^5.3.3",
     "vite": "^5.0.10"
   }
