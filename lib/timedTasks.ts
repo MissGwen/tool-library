@@ -23,12 +23,12 @@ export default class TimedTasks<T extends string> {
   create(
     taskName: T,
     task: () => void | Promise<void>,
-    timeout: number = 0,
-    param: any
-  ) {
+    timeout: number,
+    param?: any
+  ): void {
     // 重复创建报错
     if (!this.taskStack.has(taskName)) {
-      console.error(`⏱️ The task ${taskName} already exists`);
+      console.error(`⏱️ The task "${taskName}" already exists`);
       return;
     }
     // 执行任务 获取任务Id
@@ -36,15 +36,15 @@ export default class TimedTasks<T extends string> {
     // 存储任务 Map("xxx",[id,taskFn])
     this.taskStack.set(taskName, [taskId, task]);
   }
-  update() {}
-  remove() {}
+  update(): void {}
+  remove(): void {}
 
   /**
    * @description 监听任务 执行完成后触发回调
    * @param { string } taskName 需要监听的任务名称
-   * @param { (param: any) => void } callback 执行完成后出发的回调 回传参数为create中的param
+   * @param { (param: any) => void } callback 执行完成后触发的回调 参数为create中的param
    */
-  on(taskName: T, callback: (param: any) => void) {
+  on(taskName: T, callback: (param: any) => void): void {
     this.message[taskName] = callback;
   }
 
@@ -59,8 +59,8 @@ export default class TimedTasks<T extends string> {
   private executeTask(
     taskName: string,
     task: () => void | Promise<void>,
-    timeout: number = 0,
-    param: any
+    timeout: number,
+    param?: any
   ): NodeJS.Timeout {
     const fullTask = async () => {
       await task();
